@@ -1,0 +1,32 @@
+{
+  "name": "server.js",
+  "version": "1.0.0",
+  "description": "CSE340 Web Backend Development project",
+  "keywords": [
+    "nodejs",
+    "express",
+    "backend"
+  ],
+  "homepage": "https://github.com/JosephPrecious/cse340-course-repo#readme",
+  "bugs": {
+    "url": "https://github.com/JosephPrecious/cse340-course-repo/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JosephPrecious/cse340-course-repo.git"
+  },
+  "license": "ISC",
+  "author": "Joseph Precious",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+  "dev": "nodemon",
+  "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
