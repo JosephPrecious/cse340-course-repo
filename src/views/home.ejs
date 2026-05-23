@@ -1,26 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joseph Precious 340 Back End class  </title>
-    <link rel="stylesheet" href="/css/main.css">
-</head>
-<body>
-
-<nav>
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/organizations">Organizations</a></li>
-        <li><a href="/projects">Projects</a></li>
-    </ul>
-</nav>
 <%- include('partials/header') %>
-<main>
-    <h1><%= title %></h1>
 
-    <h2>Welcome to the CSE 340 Service Network!</h2>
-    <p>Our mission is to connect volunteers with service opportunities.</p>
+<main class="hero-section">
+
+    <section class="hero-content">
+        <div class="hero-text">
+            <h1><%= title %></h1>
+
+            <h2>Welcome to the CSE 340 Service Network</h2>
+
+            <p>
+                Our mission is to connect volunteers with meaningful service
+                opportunities that strengthen communities and improve lives.
+            </p>
+
+            <a href="/projects" class="btn-primary">
+                Explore Projects
+            </a>
+        </div>
+
+        <div class="hero-image">
+            <img 
+                class="main-logo"
+                src="/images/cse340-service-network.png"
+                alt="CSE 340 Service Network Logo"
+            >
+        </div>
+    </section>
+
+</main>
+
 <%- include('partials/footer') %>
-</body>
-</html>

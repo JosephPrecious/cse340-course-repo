@@ -1,27 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Projects</title>
-    <link rel="stylesheet" href="/css/main.css">
-</head>
-<body>
-
-<nav>
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/organizations">Organizations</a></li>
-        <li><a href="/projects">Projects</a></li>
-    </ul>
-</nav>
 <%- include('partials/header') %>
+
 <main>
-    <h2> <%= title %></h2>
-    <ul>
-        <li>Park Cleanup - Join us to clean up local parks and make them beautiful!</li>
-        <li>Food Drive - Help collect and distribute food to those in need.</li>
-        <li>Community Tutoring - Volunteer to tutor students in various subjects.</li>
-</ul>
+
+    <section class="page-header">
+        <h1><%= title %></h1>
+
+        <p>
+            Join one of our upcoming service opportunities and make a difference.
+        </p>
+    </section>
+
+    <section class="card-grid">
+
+        <article class="info-card">
+            <h2>Park Cleanup</h2>
+
+            <p>
+                Help clean local parks and create healthier public spaces for everyone.
+            </p>
+        </article>
+
+        <article class="info-card">
+            <h2>Food Drive</h2>
+
+            <p>
+                Assist in collecting and distributing food supplies to families in need.
+            </p>
+        </article>
+
+        <article class="info-card">
+            <h2>Community Tutoring</h2>
+
+            <p>
+                Volunteer to tutor students and support educational growth.
+            </p>
+        </article>
+
+    </section>
+
 </main>
+
 <%- include('partials/footer') %>
-</body>
-</html>
