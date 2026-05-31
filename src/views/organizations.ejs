@@ -1,52 +1,48 @@
 <%- include('partials/header') %>
 
-<main>
+<main class="container">
 
     <section class="page-header">
         <h1><%= title %></h1>
         <p>
-            Meet the amazing organizations partnering with us to create
-            impactful community service opportunities.
+            Meet our trusted partner organizations making a difference
+            through community service and volunteer opportunities.
         </p>
     </section>
 
-    <section class="card-grid">
+    <section class="organizations-grid">
 
-        <article class="info-card">
-            <img src="/images/brightfuture-logo.png" alt="BrightFuture Builders logo">
+        <% organizations.forEach((organization) => { %>
 
-            <h2>BrightFuture Builders</h2>
+            <article class="organization-card">
 
-            <p>
-                Helping communities through housing and infrastructure projects.
-            </p>
+                <div class="organization-logo">
+                    <img
+                        src="/images/<%= organization.logo_filename %>"
+                        alt="<%= organization.name %> logo"
+                    >
+                </div>
 
-            <span>info@brightfuture.org</span>
-        </article>
+                <div class="organization-content">
 
-        <article class="info-card">
-            <img src="/images/greenharvest-logo.png" alt="GreenHarvest Growers logo">
+                    <h2><%= organization.name %></h2>
 
-            <h2>GreenHarvest Growers</h2>
+                    <p class="organization-description">
+                        <%= organization.description %>
+                    </p>
 
-            <p>
-                Promoting environmental sustainability and local agriculture.
-            </p>
+                    <a
+                        href="mailto:<%= organization.contact_email %>"
+                        class="organization-email"
+                    >
+                        <%= organization.contact_email %>
+                    </a>
 
-            <span>contact@greenharvest.org</span>
-        </article>
+                </div>
 
-        <article class="info-card">
-            <img src="/images/unityserve-logo.png" alt="UnityServe Volunteers logo">
+            </article>
 
-            <h2>UnityServe Volunteers</h2>
-
-            <p>
-                Connecting volunteers with outreach and humanitarian programs.
-            </p>
-
-            <span>hello@unityserve.org</span>
-        </article>
+        <% }) %>
 
     </section>
 

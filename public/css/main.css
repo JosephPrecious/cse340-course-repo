@@ -163,6 +163,60 @@ main {
     color: #2563eb;
 }
 
+.organizations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.organization-card {
+    background: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+}
+
+.organization-card:hover {
+    transform: translateY(-5px);
+}
+
+.organization-logo {
+    background: #f4f7fb;
+    padding: 2rem;
+    text-align: center;
+}
+
+.organization-logo img {
+    max-width: 140px;
+    height: auto;
+}
+
+.organization-content {
+    padding: 1.5rem;
+}
+
+.organization-content h2 {
+    color: #1e3a5f;
+    margin-bottom: 1rem;
+}
+
+.organization-description {
+    margin-bottom: 1rem;
+    color: #555;
+}
+
+.organization-email {
+    color: #2563eb;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.organization-email:hover {
+    text-decoration: underline;
+}
+
 /* ===== FOOTER ===== */
 
 footer {

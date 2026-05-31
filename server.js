@@ -1,3 +1,4 @@
+import { getAllOrganizations } from './src/models/organizations.js';
 import { testConnection } from './src/models/db.js';
 import express from 'express';
 
@@ -37,8 +38,14 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/organizations', async (req, res) => {
-    const title = 'Organizations';
-    res.render('organizations', { title });
+    const organizations = await getAllOrganizations();
+
+    const title = 'Our Partner Organizations';
+
+    res.render('organizations', {
+        title,
+        organizations
+    });
 });
 
 app.get('/projects', async (req, res) => {
