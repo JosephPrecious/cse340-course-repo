@@ -32,22 +32,34 @@ VALUES
     'unityserve-logo.png'
 );
 
-CREATE TABLE categories (
+CREATE TABLE category (
     category_id SERIAL PRIMARY KEY,
     name VARCHAR(150) NOT NULL
 );
 
-INSERT INTO categories (name)
+INSERT INTO category (name)
 VALUES
 ('Environmental'),
 ('Educational'),
 ('Community Service'),
 ('Health and Wellness');
 
+CREATE TABLE project (
+    project_id SERIAL PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    description TEXT NOT NULL
+);
+
+INSERT INTO project (name, description)
+VALUES
+('Park Cleanup', 'Join us to clean up local parks and make them beautiful!'),
+('Food Drive', 'Help collect and distribute food to those in need.'),
+('Community Tutoring', 'Volunteer to tutor students in various subjects.');
+
 CREATE TABLE project_category (
     project_id INT NOT NULL,
     category_id INT NOT NULL,
     PRIMARY KEY (project_id, category_id),
     FOREIGN KEY (project_id) REFERENCES project(project_id) ON DELETE CASCADE,
-    FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE
+    FOREIGN KEY (category_id) REFERENCES category(category_id) ON DELETE CASCADE
 );
