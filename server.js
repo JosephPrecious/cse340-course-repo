@@ -1,5 +1,4 @@
-import { getAllCategories } from './src/models/categories.js';
-import { getAllOrganizations } from './src/models/organizations.js';
+import router from './src/routes.js';
 import { testConnection } from './src/models/db.js';
 import express from 'express';
 
@@ -33,10 +32,8 @@ app.set('views', path.join(__dirname, 'src/views'));
 /**
   * Routes
   */
-app.get('/', async (req, res) => {
-    const title = 'Home';
-    res.render('home', { title });
-});
+
+app.use(router);
 
 app.get('/organizations', async (req, res) => {
     const organizations = await getAllOrganizations();
@@ -65,6 +62,7 @@ app.get('/categories', async (req, res) => {
     });
 });
 
+
 app.listen(PORT, async () => {
 
     try {
@@ -86,4 +84,34 @@ app.listen(PORT, async () => {
             error
         );
     }
+});
+
+/*
+app.get('/test-error', (req, res, next) => {
+    const err = new Error('This is a test error');
+    err.status = 500;
+    next(err);
+});
+*/
+
+app.use((req, res, next) => {
+    const err = new Error('Page Not Found');
+    err.status = 404;
+    next(err);
+});
+
+app.use((err, req, res, next) => {
+    console.error('Error occurred:', err.message);
+    console.error('Stack trace:', err.stack);
+
+    const status = err.status || 500;
+    const template = status === 404 ? '404' : '500';
+
+    const context = {
+        title: status === 404 ? 'Page Not Found' : 'Server Error',
+        error: err.message,
+        stack: err.stack
+    };
+
+    res.status(status).render(`errors/${template}`, context);
 });
