@@ -1,40 +1,44 @@
 <%- include('partials/header') %>
 
-<main>
+<main class="container">
 
     <section class="page-header">
+
         <h1><%= title %></h1>
 
         <p>
             Join one of our upcoming service opportunities and make a difference.
         </p>
+
     </section>
 
     <section class="card-grid">
 
-        <article class="info-card">
-            <h2>Park Cleanup</h2>
+        <% projects.forEach(project => { %>
 
-            <p>
-                Help clean local parks and create healthier public spaces for everyone.
-            </p>
-        </article>
+            <article class="info-card">
 
-        <article class="info-card">
-            <h2>Food Drive</h2>
+                <h2>
+                    <a href="/project/<%= project.project_id %>">
+                        <%= project.name %>
+                    </a>
+                </h2>
 
-            <p>
-                Assist in collecting and distributing food supplies to families in need.
-            </p>
-        </article>
+                <p>
+                    <%= project.description %>
+                </p>
 
-        <article class="info-card">
-            <h2>Community Tutoring</h2>
+                <p>
+                    Organization:
 
-            <p>
-                Volunteer to tutor students and support educational growth.
-            </p>
-        </article>
+                    <a href="/organization/<%= project.organization_id %>">
+                        <%= project.organization_name %>
+                    </a>
+                </p>
+
+            </article>
+
+        <% }) %>
 
     </section>
 

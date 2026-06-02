@@ -1,35 +1,54 @@
-import { getAllOrganizations, getOrganizationDetails } from '../models/organizations.js';
-import { getProjectsByOrganizationId } from '../models/projects.js';
+import {
+    getAllOrganizations,
+    getOrganizationById,
+    getProjectsByOrganization
+} from '../models/organizations.js';
 
-// ✅ THIS MUST EXIST
-const showOrganizationsPage = async (req, res) => {
+/*
+ * GET /organizations
+ */
+const getOrganizations = async (req, res) => {
+
     const organizations = await getAllOrganizations();
-    const title = 'Our Partner Organizations';
 
     res.render('organizations', {
-        title,
+        title: 'Organizations',
         organizations
     });
 };
 
-// ✅ DETAILS PAGE
-const showOrganizationDetailsPage = async (req, res) => {
-    const organizationId = req.params.id;
+/*
+ * GET /organization/:id
+ */
+const getOrganizationByIdController = async (req, res, next) => {
 
-    const organizationDetails = await getOrganizationDetails(organizationId);
-    const projects = await getProjectsByOrganizationId(organizationId);
+    try {
+        const id = parseInt(req.params.id, 10);
 
-    const title = 'Organization Details';
+        // ✅ instead of throwing "invalid id", just go 404
+        if (!id) {
+            return next(); // sends to 404 handler
+        }
 
-    res.render('organization', {
-        title,
-        organizationDetails,
-        projects
-    });
+        const organization = await getOrganizationById(id);
+        const projects = await getProjectsByOrganization(id);
+
+        if (!organization) {
+            return next(); // 404 if not found
+        }
+
+        res.render('organization', {
+            title: organization.name,
+            organization,
+            projects
+        });
+
+    } catch (error) {
+        next(error);
+    }
 };
 
-// ✅ EXPORT (now both exist)
 export {
-    showOrganizationsPage,
-    showOrganizationDetailsPage
+    getOrganizations,
+    getOrganizationByIdController
 };

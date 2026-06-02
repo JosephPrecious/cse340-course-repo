@@ -2,20 +2,26 @@
 
 <main class="container">
 
-    <section class="page-header">
+    <section class="hero">
         <h1><%= title %></h1>
-        <p>Explore service project categories that organize our mission work.</p>
+        <p>Browse service project categories.</p>
     </section>
 
-    <section class="categories-list">
+    <section class="card-grid">
 
-        <ul>
-            <% categories.forEach((category) => { %>
-                <li class="category-item">
-                    <%= category.name %>
-                </li>
-            <% }) %>
-        </ul>
+        <% categories.forEach(category => { %>
+
+            <article class="info-card">
+
+                <h2>
+                    <a href="/category/<%= category.category_id %>">
+                        <%= category.name %>
+                    </a>
+                </h2>
+
+            </article>
+
+        <% }) %>
 
     </section>
 

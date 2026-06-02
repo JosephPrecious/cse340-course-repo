@@ -1,13 +1,19 @@
 import db from './db.js';
 
+/*
+ * Get all organizations
+ */
 const getAllOrganizations = async () => {
+
     const query = `
-        SELECT organization_id,
-               name,
-               description,
-               contact_email,
-               logo_filename
-        FROM public.organization;
+        SELECT
+            organization_id,
+            name,
+            description,
+            contact_email,
+            logo_filename
+        FROM organization
+        ORDER BY name;
     `;
 
     const result = await db.query(query);
@@ -15,8 +21,12 @@ const getAllOrganizations = async () => {
     return result.rows;
 };
 
-const getOrganizationDetails = async (organizationId) => {
-    const result = await db.query(`
+/*
+ * Get organization by ID
+ */
+const getOrganizationById = async (organizationId) => {
+
+    const query = `
         SELECT
             organization_id,
             name,
@@ -25,12 +35,36 @@ const getOrganizationDetails = async (organizationId) => {
             logo_filename
         FROM organization
         WHERE organization_id = $1;
-    `, [organizationId]);
+    `;
 
-    return result.rows.length > 0 ? result.rows[0] : null;
+    const result = await db.query(query, [organizationId]);
+
+    return result.rows[0];
+};
+
+/*
+ * Get projects for organization
+ */
+const getProjectsByOrganization = async (organizationId) => {
+
+    const query = `
+        SELECT
+            project_id,
+            name,
+            description,
+            date
+        FROM project
+        WHERE organization_id = $1
+        ORDER BY date;
+    `;
+
+    const result = await db.query(query, [organizationId]);
+
+    return result.rows;
 };
 
 export {
     getAllOrganizations,
-    getOrganizationDetails
+    getOrganizationById,
+    getProjectsByOrganization
 };
