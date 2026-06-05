@@ -3,7 +3,7 @@ import express from 'express';
 import {
     getOrganizations,
     getOrganizationByIdController
-} from '../controllers/organizations.js';
+} from '../controllers/organizationsController.js';
 
 const router = express.Router();
 
@@ -15,6 +15,6 @@ router.get('/organizations', getOrganizations);
 /*
  * Single organization page
  */
-router.get('/organization/:id', getOrganizationByIdController);
+router.get('/organizations/:id', getOrganizationByIdController);
 
 export default router;

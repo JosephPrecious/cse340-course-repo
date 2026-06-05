@@ -10,11 +10,13 @@ const getAllProjects = async () => {
             project.project_id,
             project.name,
             project.description,
+            project.project_date,
+            organization.organization_id,
             organization.name AS organization_name
         FROM project
         JOIN organization
             ON project.organization_id = organization.organization_id
-        ORDER BY project.project_id;
+        ORDER BY project.project_date;
     `;
 
     const result = await db.query(query);
@@ -32,7 +34,7 @@ const getProjectById = async (projectId) => {
             project.project_id,
             project.name,
             project.description,
-            project.date,
+            project.project_date,
             organization.organization_id,
             organization.name AS organization_name
         FROM project
@@ -77,10 +79,10 @@ const getProjectsByOrganizationId = async (organizationId) => {
             project_id,
             name,
             description,
-            date
+            project_date
         FROM project
         WHERE organization_id = $1
-        ORDER BY date;
+        ORDER BY project_date;
     `;
 
     const result = await db.query(query, [organizationId]);

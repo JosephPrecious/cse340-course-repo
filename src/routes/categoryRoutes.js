@@ -3,12 +3,20 @@ import express from 'express';
 import {
     getAllCategories,
     getCategoryById
-} from '../controllers/categoryController.js';
+} from '../controllers/categoriesController.js';
 
 const router = express.Router();
 
+/*
+ * Categories list
+ */
+
 router.get('/categories', getAllCategories);
 
-router.get('/category/:id', getCategoryById);
+/*
+ * Single category
+ */
+
+router.get('/categories/:id', getCategoryById);
 
 export default router;

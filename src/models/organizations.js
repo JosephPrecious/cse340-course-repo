@@ -47,18 +47,18 @@ const getOrganizationById = async (organizationId) => {
  */
 const getProjectsByOrganization = async (organizationId) => {
 
-    const query = `
+    const sql = `
         SELECT
             project_id,
             name,
             description,
-            date
+            project_date
         FROM project
         WHERE organization_id = $1
-        ORDER BY date;
+        ORDER BY project_date ASC
     `;
 
-    const result = await db.query(query, [organizationId]);
+    const result = await db.query(sql, [organizationId]);
 
     return result.rows;
 };
