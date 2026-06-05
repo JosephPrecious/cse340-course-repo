@@ -2,9 +2,9 @@ import { Pool } from 'pg';
 
 const pool = new Pool({
     connectionString: process.env.DB_URL,
-    ssl: process.env.NODE_ENV === 'production'
-        ? { rejectUnauthorized: false }
-        : false
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 
 let db = pool;
@@ -19,8 +19,14 @@ const testConnection = async () => {
         );
 
         return true;
+
     } catch (error) {
-        console.error('Database connection failed:', error.message);
+
+        console.error(
+            'Database connection failed:',
+            error.message
+        );
+
         throw error;
     }
 };
