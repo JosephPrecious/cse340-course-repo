@@ -7,14 +7,8 @@ import {
 
 const router = express.Router();
 
-/*
- * Organizations list page
- */
 router.get('/organizations', getOrganizations);
 
-/*
- * Single organization page
- */
-router.get('/organizations/:id', getOrganizationByIdController);
+router.get('/organization/:id', getOrganizationByIdController);
 
 export default router;

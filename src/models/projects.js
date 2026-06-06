@@ -1,22 +1,24 @@
 import db from './db.js';
 
 /*
- * Get all projects
+ * Get upcoming projects
  */
 const getAllProjects = async () => {
 
     const query = `
-        SELECT 
-            project.project_id,
-            project.name,
-            project.description,
-            project.project_date,
-            organization.organization_id,
-            organization.name AS organization_name
-        FROM project
-        JOIN organization
-            ON project.organization_id = organization.organization_id
-        ORDER BY project.project_date;
+    SELECT
+        project.project_id,
+        project.name,
+        project.description,
+        project.project_date,
+        organization.organization_id,
+        organization.name AS organization_name
+    FROM project
+    JOIN organization
+        ON project.organization_id = organization.organization_id
+    WHERE project.project_date >= CURRENT_DATE
+    ORDER BY project.project_date ASC
+    LIMIT 5;
     `;
 
     const result = await db.query(query);
@@ -25,12 +27,12 @@ const getAllProjects = async () => {
 };
 
 /*
- * Get project by ID
+ * Get single project
  */
 const getProjectById = async (projectId) => {
 
     const query = `
-        SELECT 
+        SELECT
             project.project_id,
             project.name,
             project.description,
@@ -49,7 +51,7 @@ const getProjectById = async (projectId) => {
 };
 
 /*
- * Get categories for a project
+ * Get categories for project
  */
 const getCategoriesByProject = async (projectId) => {
 
@@ -69,30 +71,8 @@ const getCategoriesByProject = async (projectId) => {
     return result.rows;
 };
 
-/*
- * Get projects by organization ID
- */
-const getProjectsByOrganizationId = async (organizationId) => {
-
-    const query = `
-        SELECT
-            project_id,
-            name,
-            description,
-            project_date
-        FROM project
-        WHERE organization_id = $1
-        ORDER BY project_date;
-    `;
-
-    const result = await db.query(query, [organizationId]);
-
-    return result.rows;
-};
-
 export {
     getAllProjects,
     getProjectById,
-    getCategoriesByProject,
-    getProjectsByOrganizationId
+    getCategoriesByProject
 };

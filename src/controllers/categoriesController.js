@@ -4,8 +4,8 @@ import {
     getProjectsByCategory
 } from '../models/categories.js';
 
-/**
- * Display all categories
+/*
+ * GET /categories
  */
 const getAllCategories = async (req, res, next) => {
 
@@ -24,16 +24,24 @@ const getAllCategories = async (req, res, next) => {
     }
 };
 
-/**
- * Display a single category and its projects
+/*
+ * GET /category/:id
  */
 const getCategoryById = async (req, res, next) => {
 
     try {
 
-        const { id } = req.params;
+        const id = parseInt(req.params.id, 10);
+
+        if (!id) {
+            return next();
+        }
 
         const category = await fetchCategoryById(id);
+
+        if (!category) {
+            return next();
+        }
 
         const projects = await getProjectsByCategory(id);
 

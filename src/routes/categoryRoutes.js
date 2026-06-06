@@ -7,16 +7,8 @@ import {
 
 const router = express.Router();
 
-/*
- * Categories list
- */
-
 router.get('/categories', getAllCategories);
 
-/*
- * Single category
- */
-
-router.get('/categories/:id', getCategoryById);
+router.get('/category/:id', getCategoryById);
 
 export default router;

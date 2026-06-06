@@ -4,10 +4,6 @@
 
     <section class="page-header">
         <h1><%= title %></h1>
-
-        <p>
-            Join one of our upcoming service opportunities.
-        </p>
     </section>
 
     <section class="card-grid">
@@ -17,19 +13,17 @@
             <article class="info-card">
 
                 <h2>
-                    <a href="/projects/<%= project.project_id %>">
+                    <a href="/project/<%= project.project_id %>">
                         <%= project.name %>
                     </a>
                 </h2>
 
-                <p>
-                    <%= project.description %>
-                </p>
+                <p><%= project.description %></p>
 
                 <p>
                     Organization:
 
-                    <a href="/organizations/<%= project.organization_id %>">
+                    <a href="/organization/<%= project.organization_id %>">
                         <%= project.organization_name %>
                     </a>
                 </p>

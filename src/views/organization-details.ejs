@@ -3,18 +3,26 @@
 <main class="container">
 
     <section class="hero">
-        <h1><%= category.name %></h1>
-        <p>Service projects in this category.</p>
+
+        <h1><%= organization.name %></h1>
+
+        <p><%= organization.description %></p>
+
+        <p>
+            Contact:
+            <%= organization.contact_email %>
+        </p>
+
     </section>
 
     <section class="card-grid">
 
         <% projects.forEach(project => { %>
 
-            <article class="card">
+            <article class="info-card">
 
                 <h2>
-                    <a href="/projects/<%= project.project_id %>">
+                    <a href="/project/<%= project.project_id %>">
                         <%= project.name %>
                     </a>
                 </h2>

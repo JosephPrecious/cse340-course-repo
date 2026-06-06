@@ -4,8 +4,8 @@ import {
     getCategoriesByProject
 } from '../models/projects.js';
 
-/**
- * Display all projects
+/*
+ * GET /projects
  */
 const getAllProjects = async (req, res, next) => {
 
@@ -14,7 +14,7 @@ const getAllProjects = async (req, res, next) => {
         const projects = await fetchAllProjects();
 
         res.render('projects', {
-            title: 'Service Projects',
+            title: 'Upcoming Service Projects',
             projects
         });
 
@@ -24,16 +24,24 @@ const getAllProjects = async (req, res, next) => {
     }
 };
 
-/**
- * Display single project details
+/*
+ * GET /project/:id
  */
 const getProjectById = async (req, res, next) => {
 
     try {
 
-        const { id } = req.params;
+        const id = parseInt(req.params.id, 10);
+
+        if (!id) {
+            return next();
+        }
 
         const project = await fetchProjectById(id);
+
+        if (!project) {
+            return next();
+        }
 
         const categories = await getCategoriesByProject(id);
 

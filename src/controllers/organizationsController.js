@@ -7,14 +7,21 @@ import {
 /*
  * GET /organizations
  */
-const getOrganizations = async (req, res) => {
+const getOrganizations = async (req, res, next) => {
 
-    const organizations = await getAllOrganizations();
+    try {
 
-    res.render('organizations', {
-        title: 'Organizations',
-        organizations
-    });
+        const organizations = await getAllOrganizations();
+
+        res.render('organizations', {
+            title: 'Partner Organizations',
+            organizations
+        });
+
+    } catch (error) {
+
+        next(error);
+    }
 };
 
 /*
@@ -23,27 +30,29 @@ const getOrganizations = async (req, res) => {
 const getOrganizationByIdController = async (req, res, next) => {
 
     try {
+
         const id = parseInt(req.params.id, 10);
 
-        // ✅ instead of throwing "invalid id", just go 404
         if (!id) {
-            return next(); // sends to 404 handler
+            return next();
         }
 
         const organization = await getOrganizationById(id);
-        const projects = await getProjectsByOrganization(id);
 
         if (!organization) {
-            return next(); // 404 if not found
+            return next();
         }
 
-        res.render('organization', {
+        const projects = await getProjectsByOrganization(id);
+
+        res.render('organization-details', {
             title: organization.name,
             organization,
             projects
         });
 
     } catch (error) {
+
         next(error);
     }
 };

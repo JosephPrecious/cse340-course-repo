@@ -67,8 +67,17 @@ app.use((err, req, res, next) => {
 
     console.error(err);
 
-    res.status(err.status || 500).render('errors/500', {
-        title: 'Server Error',
+    const status = err.status || 500;
+
+    const view = status === 404
+        ? 'errors/404'
+        : 'errors/500';
+
+    res.status(status).render(view, {
+        title: status === 404
+            ? 'Page Not Found'
+            : 'Server Error',
+
         error: err.message,
         NODE_ENV
     });
