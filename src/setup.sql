@@ -17,6 +17,7 @@ CREATE TABLE project (
     name VARCHAR(150) NOT NULL,
     description TEXT NOT NULL,
     project_date DATE NOT NULL,
+    location VARCHAR(255) NOT NULL,
     FOREIGN KEY (organization_id)
         REFERENCES organization(organization_id)
         ON DELETE CASCADE
@@ -39,7 +40,12 @@ CREATE TABLE project_category (
         ON DELETE CASCADE
 );
 
-INSERT INTO organization (name, description, contact_email, logo_filename)
+INSERT INTO organization (
+    name,
+    description,
+    contact_email,
+    logo_filename
+)
 VALUES
 (
 'BrightFuture Builders',
@@ -60,25 +66,34 @@ VALUES
 'unityserve-logo.png'
 );
 
-INSERT INTO project (organization_id, name, description, project_date)
+INSERT INTO project (
+    organization_id,
+    name,
+    description,
+    project_date,
+    location
+)
 VALUES
 (
 1,
 'Park Cleanup',
 'Join us to clean local parks and improve the environment.',
-'2026-06-15'
+'2026-06-15',
+'Riverside Community Park'
 ),
 (
 2,
 'Food Drive',
 'Help distribute food to families in need.',
-'2026-06-20'
+'2026-06-20',
+'Downtown Community Center'
 ),
 (
 3,
 'Community Tutoring',
 'Volunteer to tutor students after school.',
-'2026-06-25'
+'2026-06-25',
+'Unity Youth Hall'
 );
 
 INSERT INTO category (name)
@@ -88,7 +103,10 @@ VALUES
 ('Community Service'),
 ('Health and Wellness');
 
-INSERT INTO project_category (project_id, category_id)
+INSERT INTO project_category (
+    project_id,
+    category_id
+)
 VALUES
 (1, 1),
 (1, 3),

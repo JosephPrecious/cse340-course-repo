@@ -258,11 +258,6 @@ main {
     transition: background 0.3s ease;
 }
 
-.tag:hover {
-    background: #1d4ed8;
-}
-
-
 /* ===== FOOTER ===== */
 
 footer {

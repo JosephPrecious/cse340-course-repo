@@ -7,6 +7,7 @@ import { testConnection } from './src/models/db.js';
 import categoryRoutes from './src/routes/categoryRoutes.js';
 import projectRoutes from './src/routes/projectRoutes.js';
 import organizationRoutes from './src/routes/organizationRoutes.js';
+import homeRoutes from './src/routes/homeRoutes.js';
 
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'development';
 
@@ -23,25 +24,18 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(express.urlencoded({ extended: true }));
+
 app.set('view engine', 'ejs');
 
 app.set('views', path.join(__dirname, 'src/views'));
 
-/*
- * Routes
- */
-
-app.get('/', (req, res) => {
-
-    res.render('home', {
-        title: 'CSE 340 Service Network'
-    });
-});
 
 /*
  * Route Files
  */
 
+app.use('/', homeRoutes);
 app.use('/', organizationRoutes);
 app.use('/', projectRoutes);
 app.use('/', categoryRoutes);

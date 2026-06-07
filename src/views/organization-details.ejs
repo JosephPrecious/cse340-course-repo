@@ -4,6 +4,12 @@
 
     <section class="hero">
 
+        <img
+            src="/images/<%= organization.logo_filename %>"
+            alt="<%= organization.name %> logo"
+            class="organization-detail-image"
+        >
+
         <h1><%= organization.name %></h1>
 
         <p><%= organization.description %></p>
@@ -12,7 +18,7 @@
             Contact:
             <%= organization.contact_email %>
         </p>
-
+ 
     </section>
 
     <section class="card-grid">

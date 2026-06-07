@@ -58,8 +58,43 @@ const getProjectsByCategory = async (categoryId) => {
     return result.rows;
 };
 
+/*
+ * Create category
+ */
+const createCategory = async (name) => {
+
+    const sql = `
+        INSERT INTO category (name)
+        VALUES ($1)
+        RETURNING *;
+    `;
+
+    const result = await db.query(sql, [name]);
+
+    return result.rows[0];
+};
+
+/*
+ * Update category
+ */
+const updateCategory = async (id, name) => {
+
+    const sql = `
+        UPDATE category
+        SET name = $1
+        WHERE category_id = $2
+        RETURNING *;
+    `;
+
+    const result = await db.query(sql, [name, id]);
+
+    return result.rows[0];
+};
+
 export {
     getAllCategories,
     getCategoryById,
-    getProjectsByCategory
+    getProjectsByCategory,
+    createCategory,
+    updateCategory
 };

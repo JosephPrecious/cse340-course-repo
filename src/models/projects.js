@@ -6,19 +6,18 @@ import db from './db.js';
 const getAllProjects = async () => {
 
     const query = `
-    SELECT
-        project.project_id,
-        project.name,
-        project.description,
-        project.project_date,
-        organization.organization_id,
-        organization.name AS organization_name
-    FROM project
-    JOIN organization
-        ON project.organization_id = organization.organization_id
-    WHERE project.project_date >= CURRENT_DATE
-    ORDER BY project.project_date ASC
-    LIMIT 5;
+        SELECT
+            project.project_id,
+            project.name,
+            project.description,
+            project.project_date,
+            project.location,
+            organization.organization_id,
+            organization.name AS organization_name
+        FROM project
+        JOIN organization
+            ON project.organization_id = organization.organization_id
+        ORDER BY project.project_date ASC;
     `;
 
     const result = await db.query(query);
@@ -37,6 +36,7 @@ const getProjectById = async (projectId) => {
             project.name,
             project.description,
             project.project_date,
+            project.location,
             organization.organization_id,
             organization.name AS organization_name
         FROM project
