@@ -1,6 +1,6 @@
 import db from './db.js';
 
-/**
+/*
  * Get all categories
  */
 const getAllCategories = async () => {
@@ -18,8 +18,8 @@ const getAllCategories = async () => {
     return result.rows;
 };
 
-/**
- * Get single category by ID
+/*
+ * Get category by ID
  */
 const getCategoryById = async (id) => {
 
@@ -36,8 +36,8 @@ const getCategoryById = async (id) => {
     return result.rows[0];
 };
 
-/**
- * Get all projects for a category
+/*
+ * Get projects by category
  */
 const getProjectsByCategory = async (categoryId) => {
 
@@ -47,7 +47,7 @@ const getProjectsByCategory = async (categoryId) => {
             project.name,
             project.description
         FROM project
-        INNER JOIN project_category
+        JOIN project_category
             ON project.project_id = project_category.project_id
         WHERE project_category.category_id = $1
         ORDER BY project.name;
@@ -63,13 +63,13 @@ const getProjectsByCategory = async (categoryId) => {
  */
 const createCategory = async (name) => {
 
-    const sql = `
+    const query = `
         INSERT INTO category (name)
         VALUES ($1)
         RETURNING *;
     `;
 
-    const result = await db.query(sql, [name]);
+    const result = await db.query(query, [name]);
 
     return result.rows[0];
 };
@@ -79,14 +79,14 @@ const createCategory = async (name) => {
  */
 const updateCategory = async (id, name) => {
 
-    const sql = `
+    const query = `
         UPDATE category
         SET name = $1
         WHERE category_id = $2
         RETURNING *;
     `;
 
-    const result = await db.query(sql, [name, id]);
+    const result = await db.query(query, [name, id]);
 
     return result.rows[0];
 };
