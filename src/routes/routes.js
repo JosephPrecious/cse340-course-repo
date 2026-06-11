@@ -1,18 +1,30 @@
 import express from 'express';
 
 import {
+    organizationValidation,
     getOrganizations,
-    getOrganizationByIdController
+    getOrganizationByIdController,
+    showNewOrganizationForm,
+    processNewOrganizationForm,
+    showEditOrganizationForm,
+    processEditOrganizationForm
 } from '../controllers/organizationsController.js';
 
 import {
+    projectValidation,
     getAllProjects,
-    getProjectById
+    getProjectById,
+    showNewProjectForm,
+    processNewProjectForm,
+    showEditProjectForm,
+    processEditProjectForm
 } from '../controllers/projectsController.js';
 
 import {
     getAllCategories,
-    getCategoryById
+    getCategoryById,
+    showAssignCategoriesForm,
+    processAssignCategoriesForm
 } from '../controllers/categoriesController.js';
 
 const router = express.Router();
@@ -30,7 +42,10 @@ router.get('/', (req, res) => {
 /*
  * Organization Routes
  */
-router.get('/organizations', getOrganizations);
+router.get(
+    '/organizations',
+    getOrganizations
+);
 
 router.get(
     '/organization/:id',
@@ -38,17 +53,98 @@ router.get(
 );
 
 /*
+ * New Organization
+ */
+router.get(
+    '/new-organization',
+    showNewOrganizationForm
+);
+
+router.post(
+    '/new-organization',
+    organizationValidation,
+    processNewOrganizationForm
+);
+
+/*
+ * Edit Organization
+ */
+router.get(
+    '/edit-organization/:id',
+    showEditOrganizationForm
+);
+
+router.post(
+    '/edit-organization/:id',
+    organizationValidation,
+    processEditOrganizationForm
+);
+
+/*
  * Project Routes
  */
-router.get('/projects', getAllProjects);
+router.get(
+    '/projects',
+    getAllProjects
+);
 
-router.get('/project/:id', getProjectById);
+router.get(
+    '/project/:id',
+    getProjectById
+);
+
+/*
+ * New Project
+ */
+router.get(
+    '/new-project',
+    showNewProjectForm
+);
+
+router.post(
+    '/new-project',
+    projectValidation,
+    processNewProjectForm
+);
+
+/*
+ * Edit Project
+ */
+router.get(
+    '/edit-project/:id',
+    showEditProjectForm
+);
+
+router.post(
+    '/edit-project/:id',
+    projectValidation,
+    processEditProjectForm
+);
 
 /*
  * Category Routes
  */
-router.get('/categories', getAllCategories);
+router.get(
+    '/categories',
+    getAllCategories
+);
 
-router.get('/category/:id', getCategoryById);
+router.get(
+    '/category/:id',
+    getCategoryById
+);
+
+/*
+ * Assign Categories
+ */
+router.get(
+    '/project/:projectId/assign-categories',
+    showAssignCategoriesForm
+);
+
+router.post(
+    '/project/:projectId/assign-categories',
+    processAssignCategoriesForm
+);
 
 export default router;

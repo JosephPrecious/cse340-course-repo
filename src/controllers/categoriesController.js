@@ -3,8 +3,14 @@ import {
     getCategoryById as fetchCategoryById,
     getProjectsByCategory,
     createCategory,
-    updateCategory
+    updateCategory,
+    getCategoriesByProject,
+    updateCategoryAssignments
 } from '../models/categories.js';
+
+import {
+    getProjectById as fetchProjectById
+} from '../models/projects.js';
 
 /*
  * GET /categories
@@ -174,11 +180,97 @@ const editCategory = async (req, res, next) => {
     }
 };
 
+/*
+ * Render assign categories form
+ */
+const showAssignCategoriesForm = async (
+    req,
+    res,
+    next
+) => {
+
+    try {
+
+        const projectId =
+            parseInt(
+                req.params.projectId,
+                10
+            );
+
+        const project =
+            await fetchProjectById(
+                projectId
+            );
+
+        const categories =
+            await fetchAllCategories();
+
+        const assignedCategories =
+            await getCategoriesByProject(
+                projectId
+            );
+
+        res.render(
+            'assign-categories',
+            {
+                title:
+                    'Assign Categories',
+                project,
+                categories,
+                assignedCategories
+            }
+        );
+
+    } catch (error) {
+
+        next(error);
+    }
+};
+
+/*
+ * Process assign categories form
+ */
+const processAssignCategoriesForm =
+    async (
+        req,
+        res,
+        next
+    ) => {
+
+        try {
+
+            const projectId =
+                parseInt(
+                    req.params.projectId,
+                    10
+                );
+
+            const {
+                categoryIds
+            } = req.body;
+
+            await updateCategoryAssignments(
+                projectId,
+                categoryIds
+            );
+
+            res.redirect(
+                `/project/${projectId}`
+            );
+
+        } catch (error) {
+
+            next(error);
+        }
+    };
+
 export {
     getAllCategories,
     getCategoryById,
     renderNewCategoryForm,
     createNewCategory,
     renderEditCategoryForm,
-    editCategory
+    editCategory,
+    showAssignCategoriesForm,
+    processAssignCategoriesForm
 };

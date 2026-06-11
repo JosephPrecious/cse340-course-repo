@@ -1,0 +1,132 @@
+<%- include('partials/header') %>
+
+<main class="container">
+
+    <section class="page-header">
+        <h1><%= title %></h1>
+    </section>
+
+    <% if (errors && errors.length > 0) { %>
+
+        <div class="error-container">
+
+            <% errors.forEach(error => { %>
+
+                <p><%= error.msg %></p>
+
+            <% }) %>
+
+        </div>
+
+    <% } %>
+
+    <form
+        action="/new-project"
+        method="POST"
+        class="form-card"
+    >
+
+        <div class="form-group">
+
+            <label for="organizationId">
+                Organization
+            </label>
+
+            <select
+                id="organizationId"
+                name="organizationId"
+                required
+            >
+
+                <option value="">
+                    Select Organization
+                </option>
+
+                <% organizations.forEach(organization => { %>
+
+                    <option
+                        value="<%= organization.organization_id %>"
+                    >
+                        <%= organization.name %>
+                    </option>
+
+                <% }) %>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="name">
+                Project Name
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                maxlength="200"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="description">
+                Description
+            </label>
+
+            <textarea
+                id="description"
+                name="description"
+                required
+                maxlength="1000"
+            ></textarea>
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="location">
+                Location
+            </label>
+
+            <input
+                type="text"
+                id="location"
+                name="location"
+                required
+                maxlength="200"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="projectDate">
+                Project Date
+            </label>
+
+            <input
+                type="date"
+                id="projectDate"
+                name="projectDate"
+                required
+            >
+
+        </div>
+
+        <button
+            type="submit"
+            class="btn-primary"
+        >
+            Create Project
+        </button>
+
+    </form>
+
+</main>
+
+<%- include('partials/footer') %>

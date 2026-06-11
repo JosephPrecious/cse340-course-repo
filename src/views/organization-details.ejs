@@ -16,12 +16,29 @@
 
         <p>
             Contact:
-            <%= organization.contact_email %>
+            <a href="mailto:<%= organization.contact_email %>">
+                <%= organization.contact_email %>
+            </a>
         </p>
- 
+
+        <p>
+            <a
+                class="btn-primary"
+                href="/edit-organization/<%= organization.organization_id %>"
+            >
+                Edit Organization
+            </a>
+        </p>
+
     </section>
 
     <section class="card-grid">
+
+        <% if (projects.length === 0) { %>
+
+            <p>No projects available.</p>
+
+        <% } %>
 
         <% projects.forEach(project => { %>
 
@@ -34,6 +51,16 @@
                 </h2>
 
                 <p><%= project.description %></p>
+
+                <p>
+                    Date:
+                    <%= project.project_date %>
+                </p>
+
+                <p>
+                    Location:
+                    <%= project.location %>
+                </p>
 
             </article>
 
