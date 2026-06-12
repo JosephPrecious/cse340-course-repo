@@ -27,6 +27,18 @@ import {
     processAssignCategoriesForm
 } from '../controllers/categoriesController.js';
 
+import {
+    showUserRegistrationForm,
+    processUserRegistrationForm,
+    showLoginForm,
+    processLoginForm,
+    processLogout,
+    showDashboard,
+    requireLogin,
+    requireAdmin,
+    showUsersPage 
+} from '../controllers/usersController.js';
+
 const router = express.Router();
 
 /*
@@ -145,6 +157,56 @@ router.get(
 router.post(
     '/project/:projectId/assign-categories',
     processAssignCategoriesForm
+);
+
+/*
+ * Register Routes
+ */
+router.get(
+    '/register',
+    showUserRegistrationForm
+);
+
+router.post(
+    '/register',
+    processUserRegistrationForm
+);
+
+/*
+ * Login Routes
+ */
+router.get(
+    '/login',
+    showLoginForm
+);
+
+router.post(
+    '/login',
+    processLoginForm
+);
+
+router.get(
+    '/logout',
+    processLogout
+);
+
+/*
+ * Dashboard
+ */
+router.get(
+    '/dashboard',
+    requireLogin,
+    showDashboard
+);
+
+/*
+ * Admin Users Page
+ */
+router.get(
+    '/users',
+    requireLogin,
+    requireAdmin,
+    showUsersPage
 );
 
 export default router;

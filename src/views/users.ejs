@@ -1,0 +1,41 @@
+<%- include('partials/header') %>
+
+<main class="container">
+
+    <section class="page-header">
+
+        <h1>
+            Registered Users
+        </h1>
+
+    </section>
+
+    <section class="card-grid">
+
+        <% users.forEach(user => { %>
+
+            <article class="info-card">
+
+                <h2>
+                    <%= user.name %>
+                </h2>
+
+                <p>
+                    <strong>Email:</strong>
+                    <%= user.email %>
+                </p>
+
+                <p>
+                    <strong>Role:</strong>
+                    <%= user.role_name %>
+                </p>
+
+            </article>
+
+        <% }) %>
+
+    </section>
+
+</main>
+
+<%- include('partials/footer') %>

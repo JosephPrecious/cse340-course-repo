@@ -1,6 +1,8 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import session from 'express-session';
+import flash from 'connect-flash';
 
 import { testConnection } from './src/models/db.js';
 
@@ -19,6 +21,20 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 /*
+ * Session Configuration
+ */
+
+app.use(
+    session({
+        secret: 'cse340-secret-key',
+        resave: false,
+        saveUninitialized: false
+    })
+);
+
+app.use(flash());
+
+/*
  * Middleware
  */
 
@@ -30,6 +46,34 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 
 app.set('views', path.join(__dirname, 'src/views'));
+
+/*
+ * Global View Variables
+ */
+
+app.use((req, res, next) => {
+
+    res.locals.isLoggedIn = false;
+
+    if (
+        req.session &&
+        req.session.user
+    ) {
+
+        res.locals.isLoggedIn = true;
+    }
+
+    res.locals.successMessages =
+        req.flash('success');
+
+    res.locals.errorMessages =
+        req.flash('error');
+
+    res.locals.NODE_ENV =
+        NODE_ENV;
+
+    next();
+});
 
 /*
  * Routes
@@ -69,7 +113,7 @@ app.use((err, req, res, next) => {
 
 /*
  * Start Server
- */
+  n*/
 
 app.listen(PORT, async () => {
 

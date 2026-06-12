@@ -1,0 +1,73 @@
+<%- include('partials/header') %>
+
+<main class="container">
+
+    <section class="auth-container">
+
+        <h1>Create Account</h1>
+
+        <% if (errors && errors.length > 0) { %>
+
+            <% errors.forEach(error => { %>
+                <p class="error-message">
+                    <%= error %>
+                </p>
+            <% }) %>
+
+        <% } %>
+
+        <form
+            action="/register"
+            method="POST"
+        >
+
+            <label for="name">
+                Name
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                value="<%= formData?.name || '' %>"
+            >
+
+            <label for="email">
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                value="<%= formData?.email || '' %>"
+            >
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                minlength="6"
+            >
+
+            <button
+                type="submit"
+                class="btn-primary"
+            >
+                Register
+            </button>
+
+        </form>
+
+    </section>
+
+</main>
+
+<%- include('partials/footer') %>

@@ -32,4 +32,4 @@ const testConnection = async () => {
 };
 
 export default db;
-export { testConnection };
+export { testConnection }; 
