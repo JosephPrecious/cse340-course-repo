@@ -2,40 +2,109 @@
 
 <main class="container">
 
-    <section class="hero">
 
-        <h1>Dashboard</h1>
+<section class="dashboard-card">
 
-        <p>
-            Welcome,
-            <strong>
-                <%= user.name %>
-            </strong>
-        </p>
+    <h1>Dashboard</h1>
 
-        <p>
-            Email:
-            <%= user.email %>
-        </p>
+    <p>
+        Welcome,
+        <strong><%= user.name %></strong>
+    </p>
 
-        <% if (
-            user.role_name === 'admin'
-        ) { %>
+    <p>
+        Email:
+        <%= user.email %>
+    </p>
+
+    <% if (user.role_name === 'admin') { %>
+
+        <a
+            href="/users"
+            class="btn-primary"
+        >
+            Manage Users
+        </a>
+
+    <% } %>
+
+</section>
+
+<section class="volunteer-projects">
+
+    <h2>My Volunteer Projects</h2>
+
+    <% if (
+        volunteerProjects &&
+        volunteerProjects.length > 0
+    ) { %>
+
+        <div class="card-grid">
+
+            <% volunteerProjects.forEach(project => { %>
+
+                <article class="info-card">
+
+                    <h3>
+                        <%= project.name %>
+                    </h3>
+
+                    <p>
+                        <%= project.location %>
+                    </p>
+
+                    <p>
+                        <%= project.project_date %>
+                    </p>
+
+                    <a
+                        href="/project/<%= project.project_id %>"
+                        class="btn-primary"
+                    >
+                        View Project
+                    </a>
+
+                    <form
+                        action="/project/<%= project.project_id %>/remove-volunteer"
+                        method="POST"
+                        class="remove-form"
+                    >
+
+                        <button
+                            type="submit"
+                            class="btn-danger"
+                        >
+                            Remove
+                        </button>
+
+                    </form>
+
+                </article>
+
+            <% }) %>
+
+        </div>
+
+    <% } else { %>
+
+        <div class="empty-state">
 
             <p>
-
-                <a
-                    href="/users"
-                    class="btn-primary"
-                >
-                    Manage Users
-                </a>
-
+                You have not volunteered for any projects yet.
             </p>
 
-        <% } %>
+            <a
+                href="/projects"
+                class="btn-primary"
+            >
+                Browse Projects
+            </a>
 
-    </section>
+        </div>
+
+    <% } %>
+
+</section>
 
 </main>
 

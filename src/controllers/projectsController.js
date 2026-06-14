@@ -15,6 +15,12 @@ import {
     getAllOrganizations
 } from '../models/organizations.js';
 
+import {
+    addVolunteer,
+    removeVolunteer,
+    isVolunteer
+} from '../models/volunteers.js';
+
 /*
  * Validation Rules
  */
@@ -137,12 +143,28 @@ const getProjectById = async (
         const categories =
             await getCategoriesByProject(id);
 
+        let volunteerStatus = false;
+
+        if (
+            req.session &&
+            req.session.user
+        ) {
+
+            volunteerStatus =
+                await isVolunteer(
+                    req.session.user.user_id,
+                    id
+                );
+        }
+
         res.render(
             'project-details',
             {
                 title: project.name,
                 project,
-                categories
+                categories,
+                isVolunteer: volunteerStatus,
+                user: req.session.user || null
             }
         );
 
@@ -151,6 +173,71 @@ const getProjectById = async (
         next(error);
     }
 };
+
+/*
+ * Volunteer For Project
+ */
+const volunteerForProject = async (
+    req,
+    res,
+    next
+) => {
+
+    try {
+
+        const projectId =
+            parseInt(
+                req.params.id,
+                10
+            );
+
+        await addVolunteer(
+            req.session.user.user_id,
+            projectId
+        );
+
+        res.redirect(
+            `/project/${projectId}`
+        );
+
+    } catch (error) {
+
+        next(error);
+    }
+};
+
+/*
+ * Remove Volunteer
+ */
+const removeVolunteerFromProject =
+    async (
+        req,
+        res,
+        next
+    ) => {
+
+        try {
+
+            const projectId =
+                parseInt(
+                    req.params.id,
+                    10
+                );
+
+            await removeVolunteer(
+                req.session.user.user_id,
+                projectId
+            );
+
+            res.redirect(
+                `/project/${projectId}`
+            );
+
+        } catch (error) {
+
+            next(error);
+        }
+    };
 
 /*
  * GET /new-project
@@ -338,6 +425,8 @@ export {
     projectValidation,
     getAllProjects,
     getProjectById,
+    volunteerForProject,
+    removeVolunteerFromProject,
     showNewProjectForm,
     processNewProjectForm,
     showEditProjectForm,

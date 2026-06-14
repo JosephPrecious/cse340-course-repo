@@ -39,6 +39,11 @@ import {
     showUsersPage 
 } from '../controllers/usersController.js';
 
+import {
+    volunteerForProject,
+    removeVolunteerFromProject
+} from '../controllers/projectsController.js';
+
 const router = express.Router();
 
 /*
@@ -197,6 +202,21 @@ router.get(
     '/dashboard',
     requireLogin,
     showDashboard
+);
+
+/*
+ * Volunteer Routes (Week 6)
+ */
+router.post(
+    '/project/:id/volunteer',
+    requireLogin,
+    volunteerForProject
+);
+
+router.post(
+    '/project/:id/remove-volunteer',
+    requireLogin,
+    removeVolunteerFromProject
 );
 
 /*

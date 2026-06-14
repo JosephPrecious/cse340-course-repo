@@ -2,76 +2,123 @@
 
 <main class="container">
 
-    <section class="hero">
+<section class="project-detail-card">
 
-        <h1><%= project.name %></h1>
+    <h1><%= project.name %></h1>
 
-        <p class="project-description">
-            <%= project.description %>
+    <p class="project-description">
+        <%= project.description %>
+    </p>
+
+    <div class="project-meta">
+
+        <p>
+            <strong>Date:</strong>
+            <%= project.project_date %>
         </p>
 
-        <div class="project-meta">
+        <p>
+            <strong>Location:</strong>
+            <%= project.location %>
+        </p>
 
-            <p>
-                <strong>Date:</strong>
-                <%= project.project_date %>
-            </p>
+        <p>
+            <strong>Partner Organization:</strong>
 
-            <p>
-                <strong>Location:</strong>
-                <%= project.location %>
-            </p>
-
-            <p>
-                <strong>Partner Organization:</strong>
-
-                <a href="/organization/<%= project.organization_id %>">
-                    <%= project.organization_name %>
-                </a>
-            </p>
-
-        </div>
-
-        <div class="action-buttons">
-
-            <a
-                href="/edit-project/<%= project.project_id %>"
-                class="btn-primary"
-            >
-                Edit Project
+            <a href="/organization/<%= project.organization_id %>">
+                <%= project.organization_name %>
             </a>
+        </p>
 
-            <a
-                href="/project/<%= project.project_id %>/assign-categories"
-                class="btn-primary"
-            >
-                Edit Categories
-            </a>
+    </div>
 
-        </div>
+    
+    <div class="action-buttons">
 
-        <% if (categories.length > 0) { %>
+        <a
+            href="/edit-project/<%= project.project_id %>"
+            class="btn-primary"
+        >
+            Edit Project
+        </a>
 
-            <h2>Categories</h2>
+        <a
+            href="/project/<%= project.project_id %>/assign-categories"
+            class="btn-primary"
+        >
+            Edit Categories
+        </a>
 
-            <div class="tag-container">
+    </div>
 
-                <% categories.forEach(category => { %>
+    <% if (user) { %>
 
-                    <a
-                        class="tag"
-                        href="/category/<%= category.category_id %>"
+        <div class="volunteer-section">
+
+            <% if (!isVolunteer) { %>
+
+                <form
+                    action="/project/<%= project.project_id %>/volunteer"
+                    method="POST"
+                >
+
+                    <button
+                        type="submit"
+                        class="btn-primary"
                     >
-                        <%= category.name %>
-                    </a>
+                        Volunteer For This Project
+                    </button>
 
-                <% }) %>
+                </form>
 
-            </div>
+            <% } else { %>
 
-        <% } %>
+                <p class="volunteer-status">
+                    You are volunteering for this project.
+                </p>
 
-    </section>
+                <form
+                    action="/project/<%= project.project_id %>/remove-volunteer"
+                    method="POST"
+                >
+
+                    <button
+                        type="submit"
+                        class="btn-danger"
+                    >
+                        Remove Volunteer Status
+                    </button>
+
+                </form>
+
+            <% } %>
+
+        </div>
+
+    <% } %>
+
+    <% if (categories.length > 0) { %>
+
+        <h2>Categories</h2>
+
+        <div class="tag-container">
+
+            <% categories.forEach(category => { %>
+
+                <a
+                    href="/category/<%= category.category_id %>"
+                    class="tag"
+                >
+                    <%= category.name %>
+                </a>
+
+            <% }) %>
+
+        </div>
+
+    <% } %>
+
+</section>
 
 </main>
 
