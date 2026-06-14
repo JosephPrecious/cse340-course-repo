@@ -53,15 +53,11 @@ app.set('views', path.join(__dirname, 'src/views'));
 
 app.use((req, res, next) => {
 
-    res.locals.isLoggedIn = false;
+    res.locals.user =
+        req.session.user || null;
 
-    if (
-        req.session &&
-        req.session.user
-    ) {
-
-        res.locals.isLoggedIn = true;
-    }
+    res.locals.isLoggedIn =
+        !!req.session.user;
 
     res.locals.successMessages =
         req.flash('success');
