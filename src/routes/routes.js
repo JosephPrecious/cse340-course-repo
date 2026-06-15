@@ -78,11 +78,15 @@ router.get(
  */
 router.get(
     '/new-organization',
+    requireLogin,
+    requireAdmin,
     showNewOrganizationForm
 );
 
 router.post(
     '/new-organization',
+    requireLogin,
+    requireAdmin,
     organizationValidation,
     processNewOrganizationForm
 );
@@ -92,11 +96,15 @@ router.post(
  */
 router.get(
     '/edit-organization/:id',
+    requireLogin,
+    requireAdmin,
     showEditOrganizationForm
 );
 
 router.post(
     '/edit-organization/:id',
+    requireLogin,
+    requireAdmin,
     organizationValidation,
     processEditOrganizationForm
 );
@@ -119,11 +127,15 @@ router.get(
  */
 router.get(
     '/new-project',
+    requireLogin,
+    requireAdmin,
     showNewProjectForm
 );
 
 router.post(
     '/new-project',
+    requireLogin,
+    requireAdmin,
     projectValidation,
     processNewProjectForm
 );
@@ -133,11 +145,15 @@ router.post(
  */
 router.get(
     '/edit-project/:id',
+    requireLogin,
+    requireAdmin,
     showEditProjectForm
 );
 
 router.post(
     '/edit-project/:id',
+    requireLogin,
+    requireAdmin,
     projectValidation,
     processEditProjectForm
 );
@@ -157,21 +173,29 @@ router.get(
 
 router.get(
     '/new-category',
+    requireLogin,
+    requireAdmin,
     renderNewCategoryForm
 );
 
 router.post(
     '/new-category',
+    requireLogin,
+    requireAdmin,
     createNewCategory
 );
 
 router.get(
     '/edit-category/:id',
+    requireLogin,
+    requireAdmin,
     renderEditCategoryForm
 );
 
 router.post(
     '/edit-category/:id',
+    requireLogin,
+    requireAdmin,   
     editCategory
 );
 
@@ -180,11 +204,15 @@ router.post(
  */
 router.get(
     '/project/:projectId/assign-categories',
+    requireLogin,
+    requireAdmin,
     showAssignCategoriesForm
 );
 
 router.post(
     '/project/:projectId/assign-categories',
+    requireLogin,
+    requireAdmin,
     processAssignCategoriesForm
 );
 
