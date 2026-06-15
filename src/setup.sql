@@ -149,3 +149,11 @@ VALUES
 (1, 3),
 (2, 3),
 (3, 2);
+
+UPDATE users
+SET role_id = (
+    SELECT role_id
+    FROM roles
+    WHERE role_name = 'admin'
+)
+WHERE email = 'admin@example.com';
