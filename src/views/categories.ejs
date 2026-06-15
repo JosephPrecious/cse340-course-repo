@@ -2,28 +2,62 @@
 
 <main class="container">
 
-    <section class="hero">
-        <h1><%= title %></h1>
-        <p>Browse service project categories.</p>
-    </section>
+<section class="page-header">
 
-    <section class="card-grid">
+    <h1>
+        Service Project Categories
+    </h1>
 
-        <% categories.forEach(category => { %>
+    <p>
+        Browse and manage project categories.
+    </p>
 
-            <article class="info-card">
+    <div class="action-buttons">
 
-                <h2>
-                    <a href="/category/<%= category.category_id %>">
-                        <%= category.name %>
-                    </a>
-                </h2>
+        <a
+            href="/new-category"
+            class="btn-primary"
+        >
+            Add New Category
+        </a>
 
-            </article>
+    </div>
 
-        <% }) %>
+</section>
 
-    </section>
+<section class="card-grid">
+
+    <% categories.forEach(category => { %>
+
+        <article class="info-card">
+
+            <h2>
+                <%= category.name %>
+            </h2>
+
+            <div class="action-buttons">
+
+                <a
+                    href="/category/<%= category.category_id %>"
+                    class="btn-primary"
+                >
+                    View
+                </a>
+
+                <a
+                    href="/edit-category/<%= category.category_id %>"
+                    class="btn-primary"
+                >
+                    Edit
+                </a>
+
+            </div>
+
+        </article>
+
+    <% }) %>
+
+</section>
 
 </main>
 

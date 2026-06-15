@@ -2,25 +2,38 @@
 
 <main class="container">
 
-    <section class="page-header">
-        <h1>Edit Category</h1>
-    </section>
+<section class="page-header">
 
-    <% if (errors.length > 0) { %>
+    <h1>
+        Edit Category
+    </h1>
 
-        <div class="errors">
+</section>
 
-            <% errors.forEach(error => { %>
-                <p><%= error %></p>
-            <% }) %>
+<% if (errors.length > 0) { %>
 
-        </div>
+    <div class="error-list">
 
-    <% } %>
+        <% errors.forEach(error => { %>
 
-    <form action="/edit-category/<%= category.category_id %>" method="POST">
+            <p><%= error %></p>
 
-        <label for="name">Category Name</label>
+        <% }) %>
+
+    </div>
+
+<% } %>
+
+<form
+    action="/edit-category/<%= category.category_id %>"
+    method="POST"
+>
+
+    <div class="form-group">
+
+        <label for="name">
+            Category Name
+        </label>
 
         <input
             type="text"
@@ -31,11 +44,13 @@
             value="<%= category.name %>"
         >
 
-        <button type="submit">
-            Update Category
-        </button>
+    </div>
 
-    </form>
+    <button type="submit">
+        Update Category
+    </button>
+
+</form>
 
 </main>
 

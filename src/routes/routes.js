@@ -21,10 +21,14 @@ import {
 } from '../controllers/projectsController.js';
 
 import {
-    getAllCategories,
-    getCategoryById,
-    showAssignCategoriesForm,
-    processAssignCategoriesForm
+getAllCategories,
+getCategoryById,
+renderNewCategoryForm,
+createNewCategory,
+renderEditCategoryForm,
+editCategory,
+showAssignCategoriesForm,
+processAssignCategoriesForm
 } from '../controllers/categoriesController.js';
 
 import {
@@ -149,6 +153,26 @@ router.get(
 router.get(
     '/category/:id',
     getCategoryById
+);
+
+router.get(
+    '/new-category',
+    renderNewCategoryForm
+);
+
+router.post(
+    '/new-category',
+    createNewCategory
+);
+
+router.get(
+    '/edit-category/:id',
+    renderEditCategoryForm
+);
+
+router.post(
+    '/edit-category/:id',
+    editCategory
 );
 
 /*
