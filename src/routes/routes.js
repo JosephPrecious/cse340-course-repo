@@ -21,14 +21,14 @@ import {
 } from '../controllers/projectsController.js';
 
 import {
-getAllCategories,
-getCategoryById,
-renderNewCategoryForm,
-createNewCategory,
-renderEditCategoryForm,
-editCategory,
-showAssignCategoriesForm,
-processAssignCategoriesForm
+    getAllCategories,
+    getCategoryById,
+    renderNewCategoryForm,
+    createNewCategory,
+    renderEditCategoryForm,
+    editCategory,
+    showAssignCategoriesForm,
+    processAssignCategoriesForm
 } from '../controllers/categoriesController.js';
 
 import {

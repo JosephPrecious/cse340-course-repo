@@ -36,6 +36,7 @@
                 type="text"
                 id="name"
                 name="name"
+                value="<%= organization.name %>"
                 required
                 maxlength="150"
             >
@@ -53,7 +54,7 @@
                 name="description"
                 required
                 maxlength="500"
-            ></textarea>
+            ><%= organization.description %></textarea>
 
         </div>
 
@@ -67,6 +68,7 @@
                 type="email"
                 id="contactEmail"
                 name="contactEmail"
+                value="<%= organization.contactEmail %>"
                 required
             >
 

@@ -8,6 +8,24 @@
         <%= organization.name %>
     </h1>
 
+    <% if (
+        user &&
+        user.role_name === 'admin'
+    ) { %>
+
+        <div class="action-buttons">
+
+            <a
+                href="/edit-organization/<%= organization.organization_id %>"
+                class="btn-primary"
+            >
+                Edit Organization
+            </a>
+
+        </div>
+
+    <% } %>
+
 </section>
 
 <section class="organization-card">

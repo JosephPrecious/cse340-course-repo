@@ -8,6 +8,24 @@
             Meet our trusted partner organizations making a difference
             through community service and volunteer opportunities.
         </p>
+
+        <% if (
+            user &&
+            user.role_name === 'admin'
+        ) { %>
+
+            <div class="action-buttons">
+
+                <a
+                    href="/new-organization"
+                    class="btn-primary"
+                >
+                    Add New Organization
+                </a>
+
+            </div>
+
+        <% } %>
     </section>
 
     <section class="organizations-grid">
@@ -41,6 +59,24 @@
                     >
                         <%= organization.contact_email %>
                     </a>
+
+                    <% if (
+                        user &&
+                        user.role_name === 'admin'
+                    ) { %>
+
+                        <div class="action-buttons">
+
+                            <a
+                                href="/edit-organization/<%= organization.organization_id %>"
+                                class="btn-primary"
+                            >
+                                Edit
+                            </a>
+
+                        </div>
+
+                    <% } %>
 
                 </div>
 

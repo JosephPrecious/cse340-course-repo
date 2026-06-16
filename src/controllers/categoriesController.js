@@ -72,7 +72,8 @@ const renderNewCategoryForm = (req, res) => {
 
     res.render('new-category', {
         title: 'Create Category',
-        errors: []
+        errors: [],
+        category: { name: '' }
     });
 };
 

@@ -112,7 +112,12 @@ const showNewOrganizationForm = async (
 
     res.render('new-organization', {
         title: 'Add New Organization',
-        errors: []
+        errors: [],
+        organization: {
+            name: '',
+            description: '',
+            contactEmail: ''
+        }
     });
 };
 
@@ -135,7 +140,8 @@ const processNewOrganizationForm = async (
                 'new-organization',
                 {
                     title: 'Add New Organization',
-                    errors: errors.array()
+                    errors: errors.array(),
+                    organization: req.body
                 }
             );
         }
@@ -222,7 +228,10 @@ const processEditOrganizationForm = async (
                     title: 'Edit Organization',
                     organization: {
                         organization_id: id,
-                        ...req.body
+                        name: req.body.name,
+                        description: req.body.description,
+                        contact_email: req.body.contactEmail,
+                        logo_filename: req.body.logoFilename
                     },
                     errors: errors.array()
                 }

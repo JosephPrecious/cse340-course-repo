@@ -1,5 +1,5 @@
 /* =========================
-   RESET
+   RESET + TOKENS
 ========================= */
 
 * {
@@ -8,19 +8,52 @@
     box-sizing: border-box;
 }
 
+:root {
+    --bg: #f7f9fc;
+    --surface: #ffffff;
+    --surface-muted: #edf3f8;
+    --text: #172033;
+    --text-muted: #5f6f85;
+    --border: #d8e1ea;
+    --primary: #155e75;
+    --primary-hover: #0e7490;
+    --accent: #2563eb;
+    --success: #0f9f6e;
+    --danger: #dc2626;
+    --danger-hover: #b91c1c;
+    --shadow: 0 16px 40px rgba(23, 32, 51, 0.08);
+    --shadow-soft: 0 8px 24px rgba(23, 32, 51, 0.06);
+    --radius: 8px;
+}
+
 /* =========================
    BASE
 ========================= */
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f7fb;
-    color: #1e293b;
-    line-height: 1.7;
-
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        linear-gradient(180deg, #ffffff 0%, var(--bg) 340px),
+        var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--primary-hover);
+}
+
+img {
+    max-width: 100%;
+    display: block;
 }
 
 /* =========================
@@ -28,29 +61,39 @@ body {
 ========================= */
 
 nav {
-    background-color: #0f172a;
-    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.94);
+    border-bottom: 1px solid var(--border);
+    padding: 0.9rem 2rem;
     position: sticky;
     top: 0;
     z-index: 100;
+    backdrop-filter: blur(14px);
 }
 
 nav ul {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
-    gap: 1.5rem;
+    align-items: center;
+    gap: 0.5rem;
     list-style: none;
     flex-wrap: wrap;
 }
 
 nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    transition: 0.3s;
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    color: var(--text);
+    padding: 0.45rem 0.8rem;
+    border-radius: var(--radius);
+    font-weight: 700;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 nav a:hover {
-    color: #38bdf8;
+    background: var(--surface-muted);
+    color: var(--primary);
 }
 
 /* =========================
@@ -59,71 +102,148 @@ nav a:hover {
 
 main {
     max-width: 1200px;
-    margin: 2rem auto;
-    padding: 2rem;
-    flex: 1;
     width: 100%;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 3rem;
+    flex: 1;
 }
-
-/* =========================
-   HEADERS
-========================= */
 
 .page-header,
 .hero {
-    text-align: center;
     margin-bottom: 2rem;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-soft);
 }
 
 .page-header h1,
-.hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+.hero h1,
+.project-detail-card h1,
+.dashboard-card h1 {
+    color: var(--text);
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+}
+
+.page-header p,
+.hero p,
+.project-description,
+.organization-description,
+.info-card p {
+    color: var(--text-muted);
 }
 
 /* =========================
-   BUTTONS
+   BUTTONS + ACTIONS
 ========================= */
 
-.btn-primary {
-    display: inline-block;
-    background-color: #0f172a;
-    color: white;
-    padding: 0.9rem 1.5rem;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: 0.3s;
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
 }
 
-.btn-primary:hover {
-    background-color: #1e293b;
+.btn-primary,
+button,
+.btn-success,
+.btn-danger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    border: none;
+    border-radius: var(--radius);
+    padding: 0.8rem 1.15rem;
+    color: white;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.btn-primary,
+button {
+    background: var(--primary);
+    box-shadow: 0 8px 18px rgba(21, 94, 117, 0.18);
+}
+
+.btn-primary:hover,
+button:hover {
+    background: var(--primary-hover);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 12px 24px rgba(21, 94, 117, 0.22);
+}
+
+.btn-success {
+    background: var(--success);
+}
+
+.btn-success:hover {
+    background: #0b815b;
+    color: white;
+}
+
+.btn-danger {
+    background: var(--danger);
+}
+
+.btn-danger:hover {
+    background: var(--danger-hover);
+    color: white;
 }
 
 /* =========================
    GRID + CARDS
 ========================= */
 
-.card-grid {
+.card-grid,
+.organizations-grid,
+.users-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
 }
 
-.info-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 14px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-    transition: transform 0.2s;
+.info-card,
+.card,
+.organization-card,
+.project-detail-card,
+.dashboard-card,
+.dashboard-box,
+.empty-state {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
 }
 
-.info-card:hover {
-    transform: translateY(-5px);
+.info-card,
+.card {
+    padding: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.info-card h2 {
-    margin-bottom: 0.5rem;
-    color: #0f172a;
+.info-card:hover,
+.card:hover,
+.organization-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+}
+
+.info-card h2,
+.card h2 {
+    margin-bottom: 0.65rem;
+    color: var(--text);
+    font-size: 1.25rem;
+    line-height: 1.25;
 }
 
 /* =========================
@@ -131,26 +251,96 @@ main {
 ========================= */
 
 .organizations-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
 }
 
 .organization-card {
-    background: white;
-    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .organization-logo {
-    text-align: center;
-    padding: 2rem;
-    background: #f4f7fb;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #eef8fb, #f4f7ff);
+    border-bottom: 1px solid var(--border);
+}
+
+.organization-logo img {
+    max-height: 96px;
+    object-fit: contain;
 }
 
 .organization-content {
     padding: 1.5rem;
+}
+
+.organization-content h2 {
+    margin-bottom: 0.65rem;
+    line-height: 1.2;
+}
+
+.organization-email {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--accent);
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+/* =========================
+   PROJECT + DASHBOARD
+========================= */
+
+.project-detail-card,
+.dashboard-card,
+.dashboard-box {
+    padding: 2rem;
+}
+
+.project-meta {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: var(--surface-muted);
+    border-radius: var(--radius);
+}
+
+.volunteer-section,
+.volunteer-projects {
+    margin-top: 2rem;
+}
+
+.volunteer-active {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: var(--radius);
+}
+
+.volunteer-active p,
+.volunteer-status {
+    color: #047857;
+    font-weight: 700;
+}
+
+.remove-form {
+    margin-top: 1rem;
+}
+
+.empty-state {
+    margin-top: 1.5rem;
+    padding: 2rem;
+    text-align: center;
+}
+
+.empty-state p {
+    margin-bottom: 1rem;
 }
 
 /* =========================
@@ -165,17 +355,22 @@ main {
 }
 
 .tag {
-    background: #2563eb;
-    color: white;
-    padding: 0.5rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    background: #e8f4f8;
+    color: var(--primary);
+    border: 1px solid #c7e4ee;
+    padding: 0.4rem 0.85rem;
     border-radius: 999px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: 0.3s;
+    font-size: 0.92rem;
+    font-weight: 700;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .tag:hover {
-    background: #1e40af;
+    background: var(--primary);
+    color: white;
 }
 
 /* =========================
@@ -184,176 +379,77 @@ main {
 
 form,
 .auth-container {
-    background: white;
-    padding: 2rem;
-    border-radius: 14px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-    max-width: 600px;
+    max-width: 640px;
     margin: 2rem auto;
+    padding: 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+}
+
+.form-group + .form-group {
+    margin-top: 1rem;
 }
 
 label {
     display: block;
-    margin-top: 1rem;
-    font-weight: bold;
+    margin-bottom: 0.35rem;
+    color: var(--text);
+    font-weight: 700;
 }
 
 input,
 textarea,
 select {
     width: 100%;
-    padding: 0.9rem;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    margin-top: 0.4rem;
+    padding: 0.85rem 0.95rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: #fbfdff;
+    color: var(--text);
+    font: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary-hover);
+    box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.14);
 }
 
 textarea {
     min-height: 150px;
+    resize: vertical;
 }
 
 /* =========================
-   BUTTONS (GLOBAL)
+   MESSAGES
 ========================= */
 
-button {
-    background: #0f172a;
-    color: white;
-    border: none;
-    padding: 0.9rem 1.5rem;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 1rem;
+.error-list,
+.error-container {
+    max-width: 760px;
+    margin: 0 auto 1.25rem;
+    padding: 1rem 1.25rem;
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+    border-radius: var(--radius);
 }
-
-button:hover {
-    background: #1e293b;
-}
-
-/* =========================
-   USERS PAGE
-========================= */
-
-.users-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
-}
-
-/* =========================
-   DASHBOARD
-========================= */
-
-.dashboard-box {
-    background: white;
-    padding: 2rem;
-    border-radius: 14px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-    text-align: center;
-}
-
-/* =========================
-   ERROR BOX
-========================= */
-
-.error-list {
-    background: #ffe5e5;
-    color: #b00020;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-}
-
-/* ==========================
-WEEK 6 VOLUNTEER FEATURES
-========================== */
-
-.project-detail-card,
-.dashboard-card {
-background: white;
-padding: 2rem;
-border-radius: 18px;
-box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-}
-
-.volunteer-section {
-margin-top: 2rem;
-margin-bottom: 2rem;
-}
-
-.volunteer-active {
-background: #ecfdf5;
-border: 1px solid #10b981;
-border-radius: 12px;
-padding: 1rem;
-}
-
-.volunteer-active p {
-color: #047857;
-font-weight: 700;
-margin-bottom: 1rem;
-}
-
-.btn-success {
-background: #10b981;
-color: white;
-border: none;
-padding: 0.9rem 1.4rem;
-border-radius: 8px;
-cursor: pointer;
-font-weight: 600;
-}
-
-.btn-success:hover {
-background: #059669;
-}
-
-.btn-danger {
-background: #ef4444;
-color: white;
-border: none;
-padding: 0.9rem 1.4rem;
-border-radius: 8px;
-cursor: pointer;
-font-weight: 600;
-}
-
-.btn-danger:hover {
-background: #dc2626;
-}
-
-.volunteer-projects {
-margin-top: 3rem;
-}
-
-.remove-form {
-margin-top: 1rem;
-}
-
-.empty-state {
-margin-top: 2rem;
-background: white;
-padding: 2rem;
-border-radius: 16px;
-text-align: center;
-box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-}
-
-.empty-state p {
-margin-bottom: 1rem;
-}
-
 
 /* =========================
    FOOTER
 ========================= */
 
 footer {
-    background: #0f172a;
-    color: white;
-    text-align: center;
-    padding: 1.5rem;
     margin-top: 3rem;
+    padding: 1.5rem;
+    background: #172033;
+    color: #e5edf6;
+    text-align: center;
 }
 
 /* =========================
@@ -362,11 +458,32 @@ footer {
 
 @media (max-width: 768px) {
 
+    nav {
+        padding: 0.75rem 1rem;
+    }
+
     nav ul {
         justify-content: center;
     }
 
     main {
-        padding: 1rem;
+        padding: 1.25rem 1rem 2rem;
+    }
+
+    .page-header,
+    .hero,
+    .project-detail-card,
+    .dashboard-card,
+    form,
+    .auth-container {
+        padding: 1.25rem;
+    }
+
+    .action-buttons,
+    .btn-primary,
+    button,
+    .btn-success,
+    .btn-danger {
+        width: 100%;
     }
 }

@@ -5,6 +5,24 @@
     <section class="hero">
         <h1><%= category.name %></h1>
         <p>Service projects in this category.</p>
+
+        <% if (
+            user &&
+            user.role_name === 'admin'
+        ) { %>
+
+            <div class="action-buttons">
+
+                <a
+                    href="/edit-category/<%= category.category_id %>"
+                    class="btn-primary"
+                >
+                    Edit Category
+                </a>
+
+            </div>
+
+        <% } %>
     </section>
 
     <section class="card-grid">
@@ -14,7 +32,7 @@
             <article class="card">
 
                 <h2>
-                    <a href="/projects/<%= project.project_id %>">
+                    <a href="/project/<%= project.project_id %>">
                         <%= project.name %>
                     </a>
                 </h2>
